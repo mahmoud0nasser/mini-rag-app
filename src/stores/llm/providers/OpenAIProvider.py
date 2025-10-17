@@ -1,5 +1,5 @@
-from ...LLMInterface import LLMInterface
-from ...LLMEnums import OpenAIEnums
+from ..LLMInterface import LLMInterface
+from ..LLMEnums import OpenAIEnums
 from openai import OpenAI
 import logging
 
@@ -85,7 +85,8 @@ class OpenAIProvider(LLMInterface):
         
         response = self.client.embeddings.create(
             model = self.embedding_model_id,
-            input = text
+            input = text,
+            input_type = document_type
         )
 
         if not response or not response.data or len(response.data) == 0 or not response.data[0].embedding:
