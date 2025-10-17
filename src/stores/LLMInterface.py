@@ -8,18 +8,18 @@ class LLMInterface(ABC):
         pass
 
     @abstractmethod
-    def set_embedding_model(self, model_id: str):
+    def set_embedding_model(self, model_id: str, embedding_size: int):
         """Set the embedding model by its identifier."""
         pass
 
     @abstractmethod
-    def generate_text(self, prompt: str, max_output_tokens: int, 
+    def generate_text(self, prompt: str, chat_history: list=[], max_output_tokens: int=None, 
                             temperature: float = None):
         """Generate text based on the provided prompt."""
         pass
 
     @abstractmethod
-    def embed_text(self, text: str, document_type: str):
+    def embed_text(self, text: str, document_type: str=None):
         """Generate embeddings for the provided text."""
         pass
 
