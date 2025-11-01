@@ -26,6 +26,7 @@ class NLPController(BaseController):
         return collection_info
     
     def index_into_vector_db(self, project: Project, chunks: List[DataChunk], 
+                                   chunks_ids: List[int],
                                    do_reset: bool=False):
         
         # Step 1: Get Collection Name
@@ -53,7 +54,8 @@ class NLPController(BaseController):
             collection_name=collection_name,
             texts=texts,
             metadata=metadata,
-            vectors=vectors
+            vectors=vectors,
+            record_ids=chunks_ids
         )
 
         return True
