@@ -24,7 +24,7 @@ class NLPController(BaseController):
         collection_name = self.create_collection_name(project_id=project.project_id)
         collection_info = self.vectordb_client.get_collection_info(collection_name=collection_name)
 
-        # for converting objects into json schema
+        # serialize objects to JSON-compatible dictionary
         return json.loads(
             json.dumps(collection_info, default=lambda x: x.__dict__)
         )
@@ -63,3 +63,31 @@ class NLPController(BaseController):
         )
 
         return True
+    
+    def search_vector_db_collection(self, project: Project, text: str, limit: int=5):
+
+        # Step 1: Get Collection Name
+        collection_name = self.create_collection_name(project_id=project.project_id)
+
+        # Step 2: get text embedding vector
+        vector = self.embedding_client.embed_text(text=text, 
+                                                  document_type=DocumentTypeEnum.QUERY.value)
+        
+        if not vector or len(vector) == 0:
+            return False
+
+        # Step 3: do semantic search
+        results = self.vectordb_client.search_by_vector(
+            collection_name=collection_name,
+            vector=vector,
+            limit=limit
+        )
+
+        if not results:
+            return False
+
+        # serialize objects to JSON-compatible dictionary
+        return json.loads(
+            json.dumps(results, default=lambda x: x.__dict__)
+        )
+
