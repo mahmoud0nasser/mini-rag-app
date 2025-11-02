@@ -4,7 +4,7 @@ from controllers.BaseConotroller import BaseController
 
 class VectorDBProviderFactory:
 
-    def __init__(self, config: dict):
+    def __init__(self, config):
         self.config = config
         self.base_controller = BaseController()
 
