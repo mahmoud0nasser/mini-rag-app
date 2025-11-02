@@ -86,8 +86,5 @@ class NLPController(BaseController):
         if not results:
             return False
 
-        # serialize objects to JSON-compatible dictionary
-        return json.loads(
-            json.dumps(results, default=lambda x: x.__dict__)
-        )
+        return results
 
