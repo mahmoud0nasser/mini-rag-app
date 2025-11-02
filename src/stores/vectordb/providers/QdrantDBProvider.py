@@ -112,7 +112,7 @@ class QdrantDBProvider(VectorDBInterface):
             batch_records = [
                 models.Record(
                     id=batch_record_ids[x],
-                    vectors=batch_vectors[x],
+                    vector=batch_vectors[x],
                     payload={
                         "text": batch_texts[x],
                         "metadata": batch_metadata[x]
